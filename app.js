@@ -11,6 +11,8 @@ const xRapidApiHost = 'covid-193.p.rapidapi.com';
 
 bot.onText(/.*/, (msg, match) => {
     const chatId = msg.chat.id;
+    const country = match.input;
+    console.log(country);
 
     axios.get(url, {
             headers: {
@@ -21,7 +23,7 @@ bot.onText(/.*/, (msg, match) => {
         }
     )
         .then(response => {
-            const result = parseResponse(response.data.response, match.input);
+            const result = parseResponse(response.data.response, country);
             bot.sendMessage(chatId, result);
         })
 });
