@@ -1,4 +1,5 @@
 const _ = require('lodash');
+const moment = require('moment');
 
 const externalService = require('./commons/externalService');
 
@@ -15,6 +16,7 @@ const process = (command) => {
 const parseResponse = (response, number, type) => {
     let result = `TOP ${number} ${type.toUpperCase()} CASES`;
     const field = dictionary[type];
+    const time = response[0].time;
 
     _
         .orderBy(response, [(elem) => provide(elem, field)], ['desc'])
@@ -23,6 +25,7 @@ const parseResponse = (response, number, type) => {
         .slice(0, number)
         .map(elem => `${elem.country.toUpperCase()}: ${_.get(elem, field)}`)
         .forEach(elem => result += `\n${elem}`);
+    result += `\nUPD: ${moment(String(time)).format('MMMM Do YYYY, HH:mm')}`;
     return result;
 };
 
