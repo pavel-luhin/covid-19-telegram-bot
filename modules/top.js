@@ -13,7 +13,7 @@ const process = (command) => {
         .then(response => parseResponse(response.data.response, number, type))
 };
 
-const parseResponse = (response, number, type) => {
+const parseResponse = (response, number = 5, type = 'total') => {
     let result = `TOP ${number} ${type.toUpperCase()} CASES`;
     const field = dictionary[type];
     const time = response[0].time;
