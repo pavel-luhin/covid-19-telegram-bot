@@ -1,0 +1,13 @@
+version: '3'
+services:
+  frontend:
+    image: "pluhin/covid-19-bot"
+    restart: always
+    networks:
+      - covid-19-bot-network
+    environment:
+      TG_TOKEN: token
+      X_RAPIDAPI_KEY: key
+
+networks:
+  covid-19-bot-network:
