@@ -2,9 +2,9 @@ const moment = require('moment');
 
 const externalService = require('./commons/externalService');
 
-const findTotalByCountry = (country) => {
-    return externalService.execute()
-        .then(response => parseResponse(response, country))
+const process = (country) => {
+    return externalService.getStatistics()
+        .then(response => parseResponse(response.data.response, country))
 };
 
 const parseResponse = (response, country) => {
@@ -23,4 +23,4 @@ const findCountry = (response, country) => {
     return response.find(elem => elem.country.toUpperCase() === country.toUpperCase());
 };
 
-module.exports = findTotalByCountry;
+module.exports = {process};
