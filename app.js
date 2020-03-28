@@ -1,7 +1,6 @@
 const TelegramBot = require('node-telegram-bot-api');
 
 const countryModule = require('./modules/country');
-const topModule = require('./modules/top');
 const constants = require('./modules/commons/constants');
 
 const bot = new TelegramBot(constants.telegramToken, {polling: true});
@@ -19,9 +18,16 @@ bot.onText(/.*/, (msg, match) => {
 });
 
 const processRequest = (command) => {
-    if (command.startsWith('top')) {
-        return topModule.process(command);
+    const firstArg = command.split("_")[0];
+    const module = dictionary[firstArg];
+    if (module) {
+        return module.process(command)
     } else {
         return countryModule.process(command)
     }
+};
+
+const dictionary = {
+    top: require('./modules/top'),
+    '/help': require('./modules/help')
 };
